@@ -1,9 +1,8 @@
 const people = [
-    {'id': 1, 'name': "tony"},
-    {'id': 2, 'name': "samson"},
-    {'id': 3, 'name': "oliver"},
-    {'id': 4, 'name': "seyi"}
-   
+    {id: 1, name:"Anthony"},
+    {id: 2, name:"Christian"},
+    {id: 3, name:"Seyi"}
 ]
 
-module.exports = people
+
+module.exports  = people

@@ -24,3 +24,20 @@ learn types of design, EJS and handlebars(learn), serverside templating
 //MVC
 
 // in controller create a new file called friend.js
+
+
+const one = 1
+console.log(one)
+
+if('one' == 1){
+    console.log(true)
+} else{
+    console.log(false)
+}
+
+
+if('one' === 1){
+    console.log(true)
+} else{
+    console.log(false)
+}
