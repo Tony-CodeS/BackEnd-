@@ -4,12 +4,30 @@ const friendSchema = new mongoose.Schema (
     {
         name:{
             type: String,
-            require:true
+            required:true
         },
         
         age:{
-            type: String
-        }
+            type: String,
+            // require:true
+        },
+
+        email:{
+            type: String,
+            required:true
+        },
+
+        password:{
+            type: String,
+            required:true
+        },
+
+        phoneNumber:{
+            type: String,
+            required:true
+        },
+       
+
     },
     {
         timestamps:true

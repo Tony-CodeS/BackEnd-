@@ -1,6 +1,6 @@
 // const data = require ('../model/data')
 const FriendsModel = require('../model/friendsSchema')
-
+const bcrypt = require('bcrypt')
 const createFriend = async (req, res)=>{
     // res.status(200).send("data")
     // const person = req.body
@@ -9,12 +9,29 @@ const createFriend = async (req, res)=>{
 
     //Mongoose Method
 
-const {name, age} = req.body
+const {name, age, phoneNumber, email, password} = req.body
+
 const smallName = name.toLowerCase()
 try{
-const newFriend = await FriendsModel.create({name:smallName,age})
-newFriend.save()
-res.status(200).send({sucess:true, message:'successfully created friend', data:newFriend})
+    const friend = await FriendsModel.findOne({email})
+
+if (friend) return res.status(400).json({
+    sucess:false,
+    message:"email already exist"
+})
+
+let hashedPassword = await bcrypt.hash(password, 12)
+const newFriend = await FriendsModel.create({name:smallName,
+age,
+phoneNumber, 
+email,
+password:hashedPassword})
+await newFriend.save()
+delete newFriend._doc.password  //to remove the password
+
+res.status(200).send({sucess:true,
+ message:'successfully created friend',
+data:newFriend})
 } catch(error){
 res.status(400).json({sucess:false, message:'error'})
 }
@@ -55,7 +72,7 @@ const updateFriend = async (req, res)=>{
 //     res.status(200).send(final)
     const filter = req.body
     const id = req.params.personId
-    const updatePerson = await FriendsModel.findByIdAndUpdate(id, filter) 
+    const updatePerson = await FriendsModel.findByIdAndUpdate(id, filter, {new:true}) 
     // {
     //     returnOriginal: false
     // }
@@ -78,6 +95,7 @@ const deleteFriend = async (req, res)=>{
 }
 
 const search = async (req, res)=>{
+    const id = req.params.id
     // const {q} = req.query
     //  await FriendsModel.find({name:q}, (error, data) => {
     //     if (!error){
@@ -90,6 +108,8 @@ const search = async (req, res)=>{
      //const result = data.find((person) => person.name === q )
      //const result = data.filter((person) => person.name.includes(q) )
      //const result = data.filter((person) => person.name.startsWith(q) )
+
+//regular expression for querying data
 
 
 module.exports ={

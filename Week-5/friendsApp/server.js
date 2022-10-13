@@ -1,5 +1,7 @@
 const express = require('express')
 const router = require(`./src/router/friendsRouter`)
+const dotenv = require('dotenv')
+dotenv.config()
 const {logger, sayHi
 } = require(`./src/middleware/logger`)
 const connectDb = require('./src/Config/config')
@@ -17,8 +19,9 @@ app.get('/', (req, res) =>{
 
 app.use(`/data`, router)
 
+const port = process.env.PORT
+connectDb();
 
-connectDb()
-app.listen(5000, ()=>{
+app.listen(port, ()=>{
     console.log('Server is up and running')
 })
