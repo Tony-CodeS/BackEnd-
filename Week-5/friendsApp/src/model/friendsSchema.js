@@ -11,6 +11,11 @@ const friendSchema = new mongoose.Schema (
             type: String,
             // require:true
         },
+        
+        avatar:{
+            type: String,
+            // require:true
+        },
 
         email:{
             type: String,
